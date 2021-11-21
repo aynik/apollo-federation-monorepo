@@ -1,0 +1,14 @@
+{
+  "name": "@services/gateway",
+  "version": "0.1.0",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "dependencies": {
+    "js-yaml": "^4.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "dev": "nodemon --quiet --watch lib .",
+    "build": "tsc --build ./tsconfig.package.json"
+  }
+}

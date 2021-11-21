@@ -1,0 +1,13 @@
+{
+  "name": "@shared/access",
+  "version": "0.1.0",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "dependencies": {
+    "graphql-shield": "^7.5.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "build": "tsc --build ./tsconfig.package.json"
+  }
+}

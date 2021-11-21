@@ -1,0 +1,47 @@
+{
+  "private": true,
+  "workspaces": [
+    "shared/models",
+    "shared/crypto",
+    "shared/access",
+    "services/gateway",
+    "services/products",
+    "services/users"
+  ],
+  "dependencies": {
+    "@apollo/federation": "^0.33.8",
+    "@apollo/gateway": "^0.44.1",
+    "apollo-server": "^3.5.0",
+    "graphql": "^15.7.2",
+    "graphql-middleware": "^6.1.12",
+    "graphql-tag": "^2.12.6"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "^2.3.0",
+    "@graphql-codegen/typescript": "^2.4.1",
+    "@graphql-codegen/typescript-resolvers": "^2.4.2",
+    "@graphql-tools/mock": "^8.4.4",
+    "@types/jest": "^27.0.2",
+    "@types/node": "^16.11.6",
+    "dotenv-cli": "^4.1.0",
+    "jest": "^27.3.1",
+    "jest-mock-extended": "^2.0.4",
+    "nodemon": "^2.0.15",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.4.1",
+    "ts-jest": "^27.0.7",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.4.4",
+    "yarn-workspaces-foreach": "^0.2.0"
+  },
+  "scripts": {
+    "build": "tsc --build ./tsconfig.build.json",
+    "build:watch": "tsc --build ./tsconfig.build.json --watch --preserveWatchOutput",
+    "clean": "rm -rf ./{services,shared}/*/{lib,*.package.tsbuildinfo}",
+    "reconf": "ts-node scripts/update-package-tsconfig.ts",
+    "test": "jest --config jest.config.json --no-cache",
+    "codegen": "workspaces-foreach --include @services/products,@services/users yarn run codegen",
+    "codegen:watch": "workspaces-foreach -p --include @services/products,@services/users yarn run codegen:watch",
+    "compose": "rover supergraph compose --config services/gateway/supergraph.yaml > services/gateway/supergraph.graphql"
+  }
+}

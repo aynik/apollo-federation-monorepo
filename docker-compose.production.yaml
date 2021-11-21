@@ -1,0 +1,41 @@
+version: '3'
+services:
+  database:
+    image: 'postgres'
+    hostname: database
+    environment:
+      POSTGRES_USER: 'postgres'
+      POSTGRES_PASSWORD: 'postgres'
+      POSTGRES_DB: 'prisma'
+    expose:
+      - '5432'
+    ports:
+      - '2345:5432'
+
+  gateway:
+    build: .
+    command: ['wait-for-it', 'products:4000', '--', 'node', 'services/gateway']
+    environment:
+      NODE_ENV: 'production'
+    ports:
+      - '4000:4000'
+
+  products:
+    build: .
+    hostname: products
+    command: ['wait-for-it', 'database:5432', '--', 'node', 'services/products']
+    environment:
+      NODE_ENV: 'production'
+      JWT_SECRET: 'secret'
+    expose:
+      - '4000'
+
+  users:
+    build: .
+    hostname: users
+    command: ['wait-for-it', 'database:5432', '--', 'node', 'services/users']
+    environment:
+      NODE_ENV: 'production'
+      JWT_SECRET: 'secret'
+    expose:
+      - '4000'
