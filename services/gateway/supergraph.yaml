@@ -1,0 +1,9 @@
+subgraphs:
+  products:
+    routing_url: http://products:4000/graphql
+    schema:
+      file: ../products/schema.graphql
+  users:
+    routing_url: http://users:4000/graphql
+    schema:
+      file: ../users/schema.graphql

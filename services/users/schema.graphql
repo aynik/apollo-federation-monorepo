@@ -1,0 +1,35 @@
+extend type Product @key(fields: "id") {
+  id: ID! @external
+  createdBy: User
+}
+
+type User @key(fields: "id") {
+  id: ID!
+  email: String
+  name: String
+}
+
+type JWT {
+  token: String!
+  refreshToken: String!
+}
+
+input CreateUserInput {
+  name: String!
+  email: String!
+  password: String!
+}
+
+input GetTokenInput {
+  email: String!
+  password: String!
+}
+
+type Query {
+  me: User
+}
+
+type Mutation {
+  createUser(input: CreateUserInput!): User!
+  getToken(input: GetTokenInput): JWT
+}

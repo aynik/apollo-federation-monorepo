@@ -1,0 +1,27 @@
+extend type User @key(fields: "id") {
+  id: ID! @external
+  productsCreated: [Product]
+}
+
+type Product @key(fields: "id") {
+  id: ID!
+  name: String!
+  sku: String!
+  variants: [ProductVariant]
+}
+
+type ProductVariant @key(fields: "id") {
+  id: ID!
+  name: String
+}
+
+input CreateProductInput {
+  name: String!
+  sku: String!
+}
+
+extend type Query {
+  allProducts: [Product]
+  myProducts: [Product]
+  product(id: ID!): Product
+}
