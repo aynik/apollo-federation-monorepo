@@ -3,6 +3,11 @@ extend type User @key(fields: "id") {
   productsCreated: [Product]
 }
 
+extend type MutatingUser @key(fields: "id") {
+  id: ID! @external
+  withProduct(input: CreateProductInput!): Product!
+}
+
 type Product @key(fields: "id") {
   id: ID!
   name: String!

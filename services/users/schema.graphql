@@ -9,6 +9,12 @@ type User @key(fields: "id") {
   name: String
 }
 
+type MutatingUser @key(fields: "id") {
+  id: ID!
+  email: String
+  name: String
+}
+
 type JWT {
   token: String!
   refreshToken: String!
@@ -30,6 +36,6 @@ type Query {
 }
 
 type Mutation {
-  createUser(input: CreateUserInput!): User!
+  createUser(input: CreateUserInput!): MutatingUser!
   getToken(input: GetTokenInput): JWT
 }

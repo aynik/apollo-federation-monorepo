@@ -44,4 +44,15 @@ export const resolvers: Resolvers<ModelsContext & JwtContext> = {
       return prisma.user.findUnique({ where: { id } }).products()
     },
   },
+  MutatingUser: {
+    withProduct: ({ id }, { input: { name, sku } }, { prisma }) => {
+      return prisma.product.create({
+        data: {
+          name,
+          sku,
+          createdById: id,
+        },
+      })
+    },
+  },
 }

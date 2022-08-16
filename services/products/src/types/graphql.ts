@@ -20,6 +20,17 @@ export type CreateProductInput = {
   sku: Scalars['String'];
 };
 
+export type MutatingUser = {
+  __typename?: 'MutatingUser';
+  id: Scalars['ID'];
+  withProduct: Product;
+};
+
+
+export type MutatingUserWithProductArgs = {
+  input: CreateProductInput;
+};
+
 export type Product = {
   __typename?: 'Product';
   id: Scalars['ID'];
@@ -135,8 +146,9 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = ResolversObject<{
   CreateProductInput: CreateProductInput;
   String: ResolverTypeWrapper<Scalars['String']>;
-  Product: ResolverTypeWrapper<Product>;
+  MutatingUser: ResolverTypeWrapper<MutatingUser>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
+  Product: ResolverTypeWrapper<Product>;
   ProductVariant: ResolverTypeWrapper<ProductVariant>;
   Query: ResolverTypeWrapper<{}>;
   User: ResolverTypeWrapper<User>;
@@ -147,12 +159,20 @@ export type ResolversTypes = ResolversObject<{
 export type ResolversParentTypes = ResolversObject<{
   CreateProductInput: CreateProductInput;
   String: Scalars['String'];
-  Product: Product;
+  MutatingUser: MutatingUser;
   ID: Scalars['ID'];
+  Product: Product;
   ProductVariant: ProductVariant;
   Query: {};
   User: User;
   Boolean: Scalars['Boolean'];
+}>;
+
+export type MutatingUserResolvers<ContextType = any, ParentType extends ResolversParentTypes['MutatingUser'] = ResolversParentTypes['MutatingUser']> = ResolversObject<{
+  __resolveReference?: ReferenceResolver<Maybe<ResolversTypes['MutatingUser']>, { __typename: 'MutatingUser' } & GraphQLRecursivePick<ParentType, {"id":true}>, ContextType>;
+
+  withProduct?: Resolver<ResolversTypes['Product'], { __typename: 'MutatingUser' } & GraphQLRecursivePick<ParentType, {"id":true}>, ContextType, RequireFields<MutatingUserWithProductArgs, 'input'>>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type ProductResolvers<ContextType = any, ParentType extends ResolversParentTypes['Product'] = ResolversParentTypes['Product']> = ResolversObject<{
@@ -185,6 +205,7 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
 }>;
 
 export type Resolvers<ContextType = any> = ResolversObject<{
+  MutatingUser?: MutatingUserResolvers<ContextType>;
   Product?: ProductResolvers<ContextType>;
   ProductVariant?: ProductVariantResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
