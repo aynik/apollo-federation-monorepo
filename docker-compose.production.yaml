@@ -14,7 +14,7 @@ services:
 
   gateway:
     build: .
-    command: ['wait-for-it', 'products:4000', '--', 'node', 'services/gateway']
+    command: ['wait-for-it', 'products:4000', 'users:4000', '--', 'node', 'services/gateway']
     environment:
       NODE_ENV: 'production'
     ports:

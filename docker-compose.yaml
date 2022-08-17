@@ -27,6 +27,9 @@ services:
   gateway:
     build: .
     command: yarn workspace @services/gateway run dev
+    depends_on:
+      - products
+      - users
     volumes:
       - .:/app
     ports:
