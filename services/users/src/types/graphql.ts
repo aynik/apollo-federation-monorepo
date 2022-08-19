@@ -32,9 +32,16 @@ export type Jwt = {
   token: Scalars['String'];
 };
 
+export type MutatingUser = {
+  __typename?: 'MutatingUser';
+  email?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  name?: Maybe<Scalars['String']>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
-  createUser: User;
+  createUser: MutatingUser;
   getToken?: Maybe<Jwt>;
 };
 
@@ -151,9 +158,10 @@ export type ResolversTypes = ResolversObject<{
   String: ResolverTypeWrapper<Scalars['String']>;
   GetTokenInput: GetTokenInput;
   JWT: ResolverTypeWrapper<Jwt>;
+  MutatingUser: ResolverTypeWrapper<MutatingUser>;
+  ID: ResolverTypeWrapper<Scalars['ID']>;
   Mutation: ResolverTypeWrapper<{}>;
   Product: ResolverTypeWrapper<Product>;
-  ID: ResolverTypeWrapper<Scalars['ID']>;
   Query: ResolverTypeWrapper<{}>;
   User: ResolverTypeWrapper<User>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
@@ -165,9 +173,10 @@ export type ResolversParentTypes = ResolversObject<{
   String: Scalars['String'];
   GetTokenInput: GetTokenInput;
   JWT: Jwt;
+  MutatingUser: MutatingUser;
+  ID: Scalars['ID'];
   Mutation: {};
   Product: Product;
-  ID: Scalars['ID'];
   Query: {};
   User: User;
   Boolean: Scalars['Boolean'];
@@ -179,8 +188,16 @@ export type JwtResolvers<ContextType = any, ParentType extends ResolversParentTy
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
+export type MutatingUserResolvers<ContextType = any, ParentType extends ResolversParentTypes['MutatingUser'] = ResolversParentTypes['MutatingUser']> = ResolversObject<{
+  __resolveReference?: ReferenceResolver<Maybe<ResolversTypes['MutatingUser']>, { __typename: 'MutatingUser' } & GraphQLRecursivePick<ParentType, {"id":true}>, ContextType>;
+  email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
-  createUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'input'>>;
+  createUser?: Resolver<ResolversTypes['MutatingUser'], ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'input'>>;
   getToken?: Resolver<Maybe<ResolversTypes['JWT']>, ParentType, ContextType, RequireFields<MutationGetTokenArgs, never>>;
 }>;
 
@@ -205,6 +222,7 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
 
 export type Resolvers<ContextType = any> = ResolversObject<{
   JWT?: JwtResolvers<ContextType>;
+  MutatingUser?: MutatingUserResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Product?: ProductResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
